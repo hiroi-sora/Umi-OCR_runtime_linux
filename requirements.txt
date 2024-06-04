@@ -1,0 +1,7 @@
+PyMuPDF
+fonttools
+pillow
+psutil
+pynput
+PySide2
+zxing-cpp
