@@ -82,7 +82,9 @@ chmod +x run.sh
 
 2. 完善 Linux 平台相关接口。
 
-补充 `UmiOCR-data/py_src/platform/linux/linux_api.py` 中缺失的部分（标为`# TODO`）。
+补充 `UmiOCR-data/main_linux.py` 中缺失的部分（标为`# TODO`）。
+
+补充 `UmiOCR-data/py_src/platform/linux/linux_api.py` 中缺失的部分。
 
 3. 确保HTTP服务器正常。
 
@@ -107,5 +109,9 @@ chmod +x run.sh
 7. 命令行相关。
 
 将用户输入 `run.sh` 的命令行参数转交到 `main_linux.py` 。
+
+8. 打包和发行
+
+寻找一种方法，将项目打包为体积小、易于使用的软件包。
 
 End. 基本完成Linux移植工作，继续检查、测试。
