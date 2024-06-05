@@ -12,7 +12,7 @@
 
 ### 测试环境
 
-`Ubuntu 24.04`
+- Ubuntu `22.04`
 
 ### 开发部署流程
 
@@ -58,9 +58,11 @@ pip3 install -r ../../Umi-OCR_runtime_linux/requirements.txt
 
 #### 拷贝Linux环境所需脚本
 
+将本仓库 `Umi-OCR_runtime_linux` 中的所有文件，拷贝到主仓库 `Umi-OCR` 中。（不覆盖）
+
 ```sh
 cd ..
-cp -r --update=none ../Umi-OCR_runtime_linux/* .
+cp -r -n ../Umi-OCR_runtime_linux/* .
 chmod +x run.sh
 ```
 
@@ -72,7 +74,11 @@ chmod +x run.sh
 ./run.sh
 ```
 
-或者，通过 VsCode 调试运行。
+或者，通过 VS Code 调试运行。
+
+启动主界面如下：
+
+![image](https://github.com/hiroi-sora/Umi-OCR_runtime_linux/assets/56373419/68c93488-1330-42fb-b2e1-d5dd11c773dc)
 
 ### 接下来的工作
 
