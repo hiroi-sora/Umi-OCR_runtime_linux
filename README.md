@@ -1,5 +1,3 @@
-<h2 align="center">（开发中，尚未正式发布）</h2>
-
 <p align="center">
   <a href="https://github.com/hiroi-sora/Umi-OCR">
     <img width="200" height="128" src="https://tupian.li/images/2022/10/27/icon---256.png" alt="Umi-OCR">
@@ -10,9 +8,14 @@
 
 本仓库为 [Umi-OCR](https://github.com/hiroi-sora/Umi-OCR) 的代码 提供Windows运行环境。
 
+> [!NOTE]
+> 项目开发中，尚未正式发布。  
+> 欢迎有经验的 Linux 开发者参与工作、贡献PR。  
+
 ### 测试环境
 
 - Ubuntu `22.04`
+- Debian `12.5`
 
 ### 开发部署流程
 
@@ -47,28 +50,67 @@ sudo apt-get install python3-dev
 sudo apt-get install gcc
 ```
 
+#### 拷贝Linux环境所需脚本
+
+`Umi-OCR_runtime_linux` 仓库中的所有文件，拷贝到主仓库 `Umi-OCR` 中。（不覆盖）
+
+```sh
+cp -r -n Umi-OCR_runtime_linux/{.,}* Umi-OCR
+chmod +x Umi-OCR/run.sh
+```
+
+#### （可选） Python 3.10
+
+检查当前版本：
+```sh
+python --version
+```
+
+Umi-OCR 依赖 `PySide2>=5.15` 库，它需要 `Python 3.8 ~ 3.10` 的环境。如果系统中没有版本符合的Python，那么请根据下列步骤，通过 [pyenv](https://github.com/pyenv/pyenv) 工具，安装 Python 3.10 。（也可以使用 conda 等工具安装。）
+
+
+安装 [pyenv](https://github.com/pyenv/pyenv) ：
+```sh
+curl https://pyenv.run | bash
+
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+
+exec "$SHELL"
+```
+
+安装构建工具：
+```sh
+sudo apt install \
+        make wget llvm build-essential libbz2-dev \
+        libncurses5-dev libgdbm-dev libnss3-dev \
+        libssl-dev libffi-dev libreadline-dev libsqlite3-dev \
+        zlib1g-dev liblzma-dev xz-utils tk-dev
+```
+
+安装Python：
+```sh
+pyenv install 3.10
+```
+
+设置当前Shell的Python版本（不影响系统全局）：
+```sh
+pyenv shell 3.10
+```
+
 #### 创建Python虚拟环境，安装依赖库
 
 ```sh
 cd Umi-OCR/UmiOCR-data
+python3 --version  # 确保当前版本为 3.10 ！
 python3 -m venv venv
 source venv/bin/activate
-pip3 install -r ../../Umi-OCR_runtime_linux/requirements.txt
-```
-
-#### 拷贝Linux环境所需脚本
-
-将本仓库 `Umi-OCR_runtime_linux` 中的所有文件，拷贝到主仓库 `Umi-OCR` 中。（不覆盖）
-
-```sh
+pip3 install -r ../requirements.txt
 cd ..
-cp -r -n ../Umi-OCR_runtime_linux/* .
-chmod +x run.sh
 ```
 
 #### 启动！
-
-（目前不一定能跑起来）
 
 ```sh
 ./run.sh
