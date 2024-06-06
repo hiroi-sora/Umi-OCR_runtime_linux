@@ -9,7 +9,7 @@
 本仓库为 [Umi-OCR](https://github.com/hiroi-sora/Umi-OCR) 的代码 提供Windows运行环境。
 
 > [!NOTE]
-> 项目开发中，尚未正式发布。  
+> 项目开发中，尚未正式发布，普通用户暂无法使用。  
 > 欢迎有经验的 Linux 开发者参与工作、贡献PR。  
 
 ### 测试环境
@@ -122,43 +122,46 @@ cd ..
 
 ![image](https://github.com/hiroi-sora/Umi-OCR_runtime_linux/assets/56373419/68c93488-1330-42fb-b2e1-d5dd11c773dc)
 
+由于现在没有适配 Linux 的 OCR 引擎插件，启动主窗口后会弹出警告弹窗：
+
+> [!WARNING]
+> OCR API 列表中不存在underfined  
+> Global 处理配置项异常：  
+> ocr.api枚举列表为空。
+
+需要等待 OCR 引擎组件完成适配工作。
+
 ### 接下来的工作
 
-1. 确保初始化正常。
+1. 开发 Linux 可用的OCR插件。
+
+从 [插件仓库](https://github.com/hiroi-sora/Umi-OCR_plugins) 中选择插件，使其兼容Linux。
+
+2. 确保初始化正常。
 
 从开始，到 `UmiOCR-data/py_src/run.py` ： `res = qtApp.exec_()` 的代码，确保其运行正常。
 
-2. 完善 Linux 平台相关接口。
+3. 完善 Linux 平台相关接口。
 
 补充 `UmiOCR-data/main_linux.py` 中缺失的部分（标为`# TODO`）。
 
 补充 `UmiOCR-data/py_src/platform/linux/linux_api.py` 中缺失的部分。
 
-3. 确保HTTP服务器正常。
+4. 确保HTTP服务器正常。
 
 `UmiOCR-data/py_src/server/web_server.py` 相关的代码，理论上是跨平台兼容的，不过要检查下是否有坑。
 
-4. 主界面正常显示。
-
-完成以上的步骤后，理论上软件主界面可以正常显示出来了，但是因为没有 OCR 插件，所以会显示一个报错弹窗：
-
-> **OCR API 列表中不存在underfined**
-
-5. 开发 Linux 可用的OCR插件。
-
-从 [插件仓库](https://github.com/hiroi-sora/Umi-OCR_plugins) 中选择插件，使其兼容Linux。
-
-6. 快捷键相关。
+5. 快捷键相关。
 
 完成以上的步骤后，理论上可以在软件界面中使用大部分功能了，但快捷键的键值映射还没完成。需要完善下述文件：
 
 `UmiOCR-data\py_src\platform\linux\key_translator.py`
 
-7. 命令行相关。
+6. 命令行相关。
 
 将用户输入 `run.sh` 的命令行参数转交到 `main_linux.py` 。
 
-8. 打包和发行
+7. 打包和发行
 
 寻找一种方法，将项目打包为体积小、易于使用的软件包。
 
