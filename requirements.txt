@@ -1,7 +1,7 @@
-PyMuPDF
-fonttools
-pillow
-psutil
+PySide2>=5.15 # cp38~cp310
+PyMuPDF>=1.23
+fonttools>=4.47
+pillow>=10.2
+psutil>=5.9
 pynput
-PySide2
 zxing-cpp
