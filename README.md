@@ -129,68 +129,67 @@ python3 --version  # 确保当前版本为 3.10 ！
 python3 -m venv venv
 source venv/bin/activate
 pip3 install -r ../requirements.txt
-cd ..
 ```
 
 #### 放置 PaddleOCR-json 插件
 
+安装解压工具 p7zip ：
 ```sh
-TODO
+sudo apt-get install p7zip-full
+```
+
+（确保当前在 `Umi-OCR/UmiOCR-data` 目录下）
+
+创建并转到插件目录：
+
+```sh
+mkdir -p plugins
+cd plugins
+```
+
+下载 [linux_x64_PaddleOCR-json_v140_dev](https://github.com/hiroi-sora/Umi-OCR_plugins/releases/tag/2.1.3_dev) 插件并解压：
+
+```sh
+wget https://github.com/hiroi-sora/Umi-OCR_plugins/releases/download/2.1.3_dev/linux_x64_PaddleOCR-json_v140_dev.7z
+7z x linux_x64_PaddleOCR-json_v140_dev.7z
+```
+
+回到 `Umi-OCR` 目录中
+```sh
+cd ../..
 ```
 
 #### 启动！
 
+通过命令行启动。或者，通过 VS Code 调试运行。
 ```sh
 ./run.sh
 ```
 
-或者，通过 VS Code 调试运行。
+成功启动并进行OCR，如下所示：
 
-启动主界面如下：
+![image](https://github.com/hiroi-sora/Umi-OCR_plugins/assets/56373419/3180619c-4568-43f7-bc4f-cf910d26b59c)
 
-![image](https://github.com/hiroi-sora/Umi-OCR_runtime_linux/assets/56373419/68c93488-1330-42fb-b2e1-d5dd11c773dc)
-
-由于现在没有适配 Linux 的 OCR 引擎插件，启动主窗口后会弹出警告弹窗：
-
-> [!WARNING]
-> OCR API 列表中不存在underfined  
-> Global 处理配置项异常：  
-> ocr.api枚举列表为空。
-
-需要等待 OCR 引擎组件完成适配工作。
+（并非全部功能可以使用，比如截图功能可能有问题）
 
 ### 接下来的工作
 
-1. 开发 Linux 可用的OCR插件。
+1. 完善 Linux 平台相关接口。
 
-从 [插件仓库](https://github.com/hiroi-sora/Umi-OCR_plugins) 中选择插件，使其兼容Linux。
+- 解决 **无法截图** 的问题。
+- 补充 `UmiOCR-data/main_linux.py` 中缺失的部分（标为`# TODO`）。
+- 补充 `UmiOCR-data/py_src/platform/linux/linux_api.py` 中缺失的部分。
 
-2. 确保初始化正常。
+2. 确保HTTP服务器正常。
 
-从开始，到 `UmiOCR-data/py_src/run.py` ： `res = qtApp.exec_()` 的代码，确保其运行正常。
+- `UmiOCR-data/py_src/server/web_server.py` 相关的代码，理论上是跨平台兼容的，不过要检查下是否有坑。
 
-3. 完善 Linux 平台相关接口。
+3. 命令行相关。
 
-补充 `UmiOCR-data/main_linux.py` 中缺失的部分（标为`# TODO`）。
+- 将用户输入 `run.sh` 的命令行参数转交到 `main_linux.py` 。
 
-补充 `UmiOCR-data/py_src/platform/linux/linux_api.py` 中缺失的部分。
+4. 打包和发行
 
-4. 确保HTTP服务器正常。
-
-`UmiOCR-data/py_src/server/web_server.py` 相关的代码，理论上是跨平台兼容的，不过要检查下是否有坑。
-
-5. 快捷键相关。
-
-完成以上的步骤后，理论上可以在软件界面中使用大部分功能了，但快捷键的键值映射还没完成。需要完善下述文件：
-
-`UmiOCR-data\py_src\platform\linux\key_translator.py`
-
-6. 命令行相关。
-
-将用户输入 `run.sh` 的命令行参数转交到 `main_linux.py` 。
-
-7. 打包和发行
-
-寻找一种方法，将项目打包为体积小、易于使用的软件包。
+- 将项目打包为体积小、易于使用的软件包。
 
 End. 基本完成Linux移植工作，继续检查、测试。
