@@ -6,7 +6,7 @@
 
 <h1 align="center">Umi-OCR Linux 运行环境</h1>
 
-本仓库为 [Umi-OCR](https://github.com/hiroi-sora/Umi-OCR) 的代码 提供Windows运行环境。
+本仓库为 [Umi-OCR](https://github.com/hiroi-sora/Umi-OCR) 的代码 提供 Linux 运行环境。
 
 > [!NOTE]
 > 项目开发中，尚未正式发布，普通用户暂无法使用。  
@@ -17,7 +17,29 @@
 - Ubuntu `22.04`
 - Debian `12.5`
 
+### 硬件要求
+
+> [!NOTE]
+> 当前 Umi-OCR-Linux 仅具有 [PaddleOCR-json](https://github.com/hiroi-sora/PaddleOCR-json) 这一种 OCR 引擎，它只支持具有 **AVX指令集** 的CPU。  
+> 未来，我们会添加更多的 OCR 引擎，支持更多硬件平台。  
+
+检查CPU兼容性：
+
+```sh
+lscpu | grep avx
+```
+
+如果CPU支持AVX指令集，则会输出一行很长的结果，其中可以找到 `avx` 的字样，类似如下（省略部分内容）：
+
+```
+Flags:          ... avx ... avx2 ...
+```
+
+**如果看不到任何输出，这表明当前CPU不支持AVX指令集，暂时无法使用 Umi-OCR-Linux 。**
+
 ### 开发部署流程
+
+适用于开发者在本地部署开发环境，进行 Umi-OCR-Linux 的二次开发或调试。
 
 #### （可选）编辑器
 
@@ -108,6 +130,12 @@ python3 -m venv venv
 source venv/bin/activate
 pip3 install -r ../requirements.txt
 cd ..
+```
+
+#### 放置 PaddleOCR-json 插件
+
+```sh
+TODO
 ```
 
 #### 启动！
