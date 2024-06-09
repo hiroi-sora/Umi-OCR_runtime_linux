@@ -22,13 +22,13 @@
 经验证，初步可用的功能：
 
 - [x] 批量OCR
+- [x] 截图OCR（不支持`Wayland`，仅在`x`会话下可用）
 - [x] 粘贴图片OCR
 - [x] 批量文档OCR
 - [x] HTTP OCR 接口
 
 未完成/存在异常的功能：
 
-- [ ] 截图OCR
 - [ ] 添加开机自启、桌面快捷方式等
 
 目前需要较繁琐的方式手动部署项目。未来将提供更方便的发行版。
@@ -53,11 +53,28 @@ Flags:          ... avx ... avx2 ...
 
 **如果看不到任何输出，这表明当前CPU不支持AVX指令集，暂时无法使用 Umi-OCR-Linux 。**
 
-### 项目部署流程
+## 项目部署流程
 
-#### （可选）编辑器
+### （可选）将显示服务器协议设置为 X 会话
 
-- 建议 [VS Code](https://code.visualstudio.com/)
+在较新的 Linux 桌面发行版中，默认使用 `Wayland` 显示服务器协议。由于 Wayland 对权限管理较为严格，QT 框架无法抓取屏幕截图。
+
+如果您需要使用截图功能，请将显示服务器协议切换为 X 协议（如 `Xorg`）。以下是在 Ubuntu、Debian 等系统中进行切换的方法：
+
+1. 在登录界面，点击右下角的齿轮图标。
+2. 选择 `Xorg` 选项。
+3. 重新登录系统。
+
+如果已经登录了系统，可以先注销，然后按照上述步骤切换到 `Xorg`。
+
+如果不需要使用截图功能，则无需进行此操作。
+
+![image](https://github.com/hiroi-sora/PaddleOCR-json/assets/56373419/3f75d0eb-76bc-4f9d-b94a-b1dea9a83606)
+
+
+### （可选）编辑器
+
+- 如果需要对代码进行二次开发或调试，推荐使用 [VS Code](https://code.visualstudio.com/) 编辑器。
 - 插件推荐：
   - [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
   - [Black Formatter](https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter) （Python规范格式化）
@@ -65,28 +82,28 @@ Flags:          ... avx ... avx2 ...
   - [QML Snippets](https://marketplace.visualstudio.com/items?itemName=ThomasVogelpohl.vsc-qml-snippets) （提供qml代码补全）
 - 本仓库提供了 `/.vscode` 项目配置文件。
 
-#### 创建开发目录
+### 创建开发目录
 
 ```sh
 mkdir Umi-OCR_Project
 cd Umi-OCR_Project
 ```
 
-#### 拉取最新源码
+### 拉取最新源码
 
 ```sh
 git clone --single-branch --branch main https://github.com/hiroi-sora/Umi-OCR.git
 git clone https://github.com/hiroi-sora/Umi-OCR_runtime_linux.git
 ```
 
-#### 安装工具
+### 安装工具
 
 ```sh
 sudo apt-get install python3-dev
 sudo apt-get install gcc
 ```
 
-#### 拷贝Linux环境所需脚本
+### 拷贝Linux环境所需脚本
 
 `Umi-OCR_runtime_linux` 仓库中的所有文件，拷贝到主仓库 `Umi-OCR` 中。（不覆盖）
 
@@ -95,7 +112,7 @@ cp -r -n Umi-OCR_runtime_linux/{.,}* Umi-OCR
 chmod +x Umi-OCR/run.sh
 ```
 
-#### （可选） Python 3.10
+### （可选） Python 3.10
 
 检查当前版本：
 ```sh
@@ -135,7 +152,7 @@ pyenv install 3.10
 pyenv shell 3.10
 ```
 
-#### 创建Python虚拟环境，安装依赖库
+### 创建Python虚拟环境，安装依赖库
 
 ```sh
 cd Umi-OCR/UmiOCR-data
@@ -145,7 +162,7 @@ source venv/bin/activate
 pip3 install -r ../requirements.txt
 ```
 
-#### 放置 PaddleOCR-json 插件
+### 放置 PaddleOCR-json 插件
 
 安装解压工具 p7zip ：
 ```sh
@@ -173,7 +190,7 @@ wget https://github.com/hiroi-sora/Umi-OCR_plugins/releases/download/2.1.3_dev/l
 cd ../..
 ```
 
-#### 启动！
+### 启动！
 
 通过命令行启动。或者通过 VS Code 调试运行。
 ```sh
@@ -184,13 +201,12 @@ cd ../..
 
 ![image](https://github.com/hiroi-sora/Umi-OCR_plugins/assets/56373419/3180619c-4568-43f7-bc4f-cf910d26b59c)
 
-（目前并非全部功能可以使用，比如截图功能可能有问题）
+---
 
-### 接下来的工作
+### 待进行的开发工作
 
 1. 完善 Linux 平台相关接口。
 
-- 解决 **无法截图** 的问题。
 - 补充 `UmiOCR-data/main_linux.py` 中缺失的部分（标为`# TODO`）。
 - 补充 `UmiOCR-data/py_src/platform/linux/linux_api.py` 中缺失的部分。
 - 补充Linux环境下默认快捷键的键值。
