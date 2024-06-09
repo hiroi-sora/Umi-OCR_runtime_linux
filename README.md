@@ -55,34 +55,7 @@ Flags:          ... avx ... avx2 ...
 
 ## 项目部署流程
 
-### （可选）将显示服务器协议设置为 X 会话
-
-在较新的 Linux 桌面发行版中，默认使用 `Wayland` 显示服务器协议。由于 Wayland 对权限管理较为严格，QT 框架无法抓取屏幕截图。
-
-如果您需要使用截图功能，请将显示服务器协议切换为 X 协议（如 `Xorg`）。以下是在 Ubuntu、Debian 等系统中进行切换的方法：
-
-1. 在登录界面，点击右下角的齿轮图标。
-2. 选择 `Xorg` 选项。
-3. 重新登录系统。
-
-如果已经登录了系统，可以先注销，然后按照上述步骤切换到 `Xorg`。
-
-如果不需要使用截图功能，则无需进行此操作。
-
-![image](https://github.com/hiroi-sora/PaddleOCR-json/assets/56373419/3f75d0eb-76bc-4f9d-b94a-b1dea9a83606)
-
-
-### （可选）编辑器
-
-- 如果需要对代码进行二次开发或调试，推荐使用 [VS Code](https://code.visualstudio.com/) 编辑器。
-- 插件推荐：
-  - [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
-  - [Black Formatter](https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter) （Python规范格式化）
-  - [QML](https://marketplace.visualstudio.com/items?itemName=bbenoist.QML) （提供qml语法高亮）
-  - [QML Snippets](https://marketplace.visualstudio.com/items?itemName=ThomasVogelpohl.vsc-qml-snippets) （提供qml代码补全）
-- 本仓库提供了 `/.vscode` 项目配置文件。
-
-### 创建开发目录
+### 创建项目目录
 
 ```sh
 mkdir Umi-OCR_Project
@@ -156,7 +129,7 @@ pyenv shell 3.10
 
 ```sh
 cd Umi-OCR/UmiOCR-data
-python3 --version  # 确保当前版本为 3.10 ！
+python3 --version  # 确保Python版本为 3.8 ~ 3.10
 python3 -m venv venv
 source venv/bin/activate
 pip3 install -r ../requirements.txt
@@ -192,7 +165,7 @@ cd ../..
 
 ### 启动！
 
-通过命令行启动。或者通过 VS Code 调试运行。
+通过命令行启动：
 ```sh
 ./run.sh
 ```
@@ -200,6 +173,35 @@ cd ../..
 成功启动并进行OCR，如下所示：
 
 ![image](https://github.com/hiroi-sora/Umi-OCR_plugins/assets/56373419/3180619c-4568-43f7-bc4f-cf910d26b59c)
+
+如果屏幕截图功能不可用（比如截图界面是纯黑的），进行下述操作：
+
+### （可选）将显示服务器协议设置为 X 会话
+
+在较新的 Linux 桌面发行版中，默认使用 `Wayland` 显示服务器协议。由于 Wayland 对权限管理较为严格，QT 框架无法抓取屏幕截图，或者只能获取到纯黑的图像。
+
+如果您需要使用截图功能，请将显示服务器协议切换为 X 协议（如 `Xorg`）。以下是在 Ubuntu、Debian 等系统中进行切换的方法：
+
+1. 在登录界面，点击右下角的齿轮图标。
+2. 选择 `Xorg` 选项。
+3. 重新登录系统。
+
+如果已经登录了系统，可以先注销，然后按照上述步骤切换到 `Xorg`。
+
+如果不需要使用截图功能，则无需进行此操作。
+
+![image](https://github.com/hiroi-sora/PaddleOCR-json/assets/56373419/3f75d0eb-76bc-4f9d-b94a-b1dea9a83606)
+
+
+### （可选）编辑器
+
+- 如果需要对代码进行二次开发或调试，推荐使用 [VS Code](https://code.visualstudio.com/) 编辑器。
+- 插件推荐：
+  - [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+  - [Black Formatter](https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter) （Python规范格式化）
+  - [QML](https://marketplace.visualstudio.com/items?itemName=bbenoist.QML) （提供qml语法高亮）
+  - [QML Snippets](https://marketplace.visualstudio.com/items?itemName=ThomasVogelpohl.vsc-qml-snippets) （提供qml代码补全）
+- 本仓库提供了 `.vscode` 项目配置文件。
 
 ---
 
