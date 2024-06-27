@@ -10,7 +10,9 @@
 
 > [!NOTE]
 > Umi-OCR Linux 处于测试阶段，使用时可能遇到一些问题。  
-> 欢迎 Linux 用户参与测试、提出Issue、贡献PR。  
+> 欢迎 Linux 用户参与测试、提出Issue、贡献PR。
+
+<p align="center"><img src="https://github.com/hiroi-sora/Umi-OCR/assets/56373419/a300661e-0789-40bd-a3d6-41121c276e50" alt="预览.png" style="width: 80%;"></p>
 
 ### 已通过测试的系统
 
