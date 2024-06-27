@@ -35,8 +35,7 @@ SOFTWARE.
 ===================================================
 
 说明：
-本文件负责 Linux 运行环境的初始化，主要涉及：
-- 创建弹窗接口 os.MessageBox
+本文件负责 Linux 运行环境的初始化。
 
 环境初始化后，调用正式入口 py_src/run.py 启动软件。
 """
@@ -53,9 +52,8 @@ def MessageBox(msg, type_="error"):
         info = "【错误】 Umi-OCR Error"
     elif type_ == "warning":
         info = "【警告】 Umi-OCR Warning"
-
-    # TODO: 想办法弹出一个窗口，展示信息
-    print(type_, "\n", msg)
+    # Linux 下没有通用的系统弹窗API，只能在控制台输出信息
+    print(info, "\n", msg)
     return 0
 
 
