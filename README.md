@@ -9,29 +9,32 @@
 本仓库为 [Umi-OCR](https://github.com/hiroi-sora/Umi-OCR) 的代码 提供 Linux 运行环境。
 
 > [!NOTE]
-> 项目开发中，尚未正式发布，使用时可能存在部分问题。  
+> Umi-OCR Linux 处于测试阶段，使用时可能遇到一些问题。  
 > 欢迎 Linux 用户参与测试、提出Issue、贡献PR。  
 
-### 测试系统
+### 已通过测试的系统
 
 - Ubuntu `22.04`
 - Debian `12.5`
 
 ### Umi-OCR Linux 兼容情况
 
-经验证，初步可用的功能：
+经验证，可正常使用的功能：
 
 - [x] 批量OCR
 - [x] 截图OCR（不支持`Wayland`，仅在`x`会话下可用）
 - [x] 粘贴图片OCR
 - [x] 批量文档OCR
+- [x] 二维码生成/识别
 - [x] HTTP OCR 接口
+- [x] 命令行调用
+- [x] 一键添加到桌面、开始菜单快捷方式
 
-未完成/存在异常的功能：
+受限的功能：
 
-- [ ] 添加开机自启、桌面快捷方式等
-
-目前需要较繁琐的方式手动部署项目。未来将提供更方便的发行版。
+- [ ] 无法一键添加开机自启。（必须手动设置）
+- [ ] 在`x`会话下截图受限。
+- [ ] 目前需要较繁琐的方式手动部署项目。（未来将提供更方便的发行版）
 
 ### 硬件要求
 
@@ -192,6 +195,19 @@ cd ../..
 
 ![image](https://github.com/hiroi-sora/PaddleOCR-json/assets/56373419/3f75d0eb-76bc-4f9d-b94a-b1dea9a83606)
 
+### 创建快捷方式
+
+可以在全局设置中一键创建桌面或开始菜单快捷方式。通过快捷方式启动软件时，不会显示命令行窗口。
+
+### 命令行指令
+
+参考主仓库 [命令行手册](https://github.com/hiroi-sora/Umi-OCR/blob/main/docs/README_CLI.md) ，将入口 `umi-ocr` 换成 `run.sh` 即可。如：
+
+```sh
+./run.sh  --screenshot
+```
+
+由于一些问题，冷启动（即Umi-OCR未在后台运行）时可能不会执行指令。可以先启动 Umi-OCR ，再使用命令行指令来控制。
 
 ### （可选）编辑器
 
@@ -209,16 +225,8 @@ cd ../..
 
 1. 完善 Linux 平台相关接口。
 
-- 补充 `UmiOCR-data/main_linux.py` 中缺失的部分（标为`# TODO`）。
 - 补充 `UmiOCR-data/py_src/platform/linux/linux_api.py` 中缺失的部分。
-- 补充Linux环境下默认快捷键的键值。
 
-2. 命令行相关。
-
-- 将用户输入的命令行参数转交到 `main_linux.py` 。
-
-3. 打包和发行
+2. 打包和发行
 
 - 将项目打包为体积小、易于使用的软件包。
-
-End. 基本完成Linux移植工作，继续检查、测试。
