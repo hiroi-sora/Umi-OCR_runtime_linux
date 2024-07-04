@@ -28,13 +28,14 @@
 - [x] 粘贴图片OCR
 - [x] 批量文档OCR
 - [x] 二维码生成/识别
-- [x] HTTP OCR 接口
+- [x] HTTP 接口
 - [x] 命令行调用
 - [x] 一键添加到桌面、开始菜单快捷方式
 
 受限的功能：
 
-- [ ] 无法一键添加开机自启。（必须手动设置）
+- [ ] 不支持 一键添加开机自启。（必须手动设置）
+- [ ] 不支持 批量任务完成后自动关机/待机。
 - [ ] 在`x`会话下截图受限。
 - [ ] 目前需要较繁琐的方式手动部署项目。（未来将提供更方便的发行版）
 
@@ -87,7 +88,7 @@ sudo apt-get install gcc
 
 ```sh
 cp -r -n Umi-OCR_runtime_linux/{.,}* Umi-OCR
-chmod +x Umi-OCR/run.sh
+chmod +x Umi-OCR/umi-ocr.sh
 ```
 
 ### （可选） Python 3.10
@@ -172,12 +173,15 @@ cd ../..
 
 通过命令行启动：
 ```sh
-./run.sh
-```
+./umi-ocr.sh
+``` 
 
 成功启动并进行OCR，如下所示：
 
 ![image](https://github.com/hiroi-sora/Umi-OCR_plugins/assets/56373419/3180619c-4568-43f7-bc4f-cf910d26b59c)
+
+> 注： `umi-ocr.sh` 为程序启动脚本，允许重命名。  
+> 如果希望像普通桌面软件一样，双击运行程序、且不显示控制台窗口，可以在全局设置中创建 **桌面/开始菜单快捷方式** ，通过快捷方式图标启动软件。 
 
 如果屏幕截图功能不可用（比如截图界面是纯黑的），进行下述操作：
 
@@ -203,13 +207,15 @@ cd ../..
 
 ### 命令行指令
 
-参考主仓库 [命令行手册](https://github.com/hiroi-sora/Umi-OCR/blob/main/docs/README_CLI.md) ，将入口 `umi-ocr` 换成 `run.sh` 即可。如：
+参考主仓库 [命令行手册](https://github.com/hiroi-sora/Umi-OCR/blob/main/docs/README_CLI.md) ，将调用对象换成 `umi-ocr.sh` 。如：
 
 ```sh
-./run.sh  --screenshot
+./umi-ocr.sh  --screenshot
 ```
 
-由于一些问题，冷启动（即Umi-OCR未在后台运行）时可能不会执行指令。可以先启动 Umi-OCR ，再使用命令行指令来控制。
+> [!NOTE]
+> 注意，由于Linux平台的会话机制，冷启动时（即 Umi-OCR 未在运行），可能不会执行指令，或者输出多余的调试信息。  
+> 建议先启动 Umi-OCR （通过命令行或者快捷方式启动均可），确保主进程已经运行。再在新的会话中，使用命令行指令来控制。  
 
 ### （可选）编辑器
 
@@ -224,11 +230,5 @@ cd ../..
 ---
 
 ### 待进行的开发工作
-
-1. 完善 Linux 平台相关接口。
-
-- 补充 `UmiOCR-data/py_src/platform/linux/linux_api.py` 中缺失的部分。
-
-2. 打包和发行
 
 - 将项目打包为体积小、易于使用的软件包。
