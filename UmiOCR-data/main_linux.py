@@ -75,8 +75,8 @@ if __name__ == "__main__":
         MessageBox("Failed to initialize running environment!\n\n" + err)
         sys.exit(0)
     try:
-        # 获取 run.sh 启动脚本路径
-        app_path = os.path.abspath("../run.sh")
+        # 获取入口脚本路径环境变量，如果不存在则赋值为空字符串
+        app_path = os.getenv("UMI_APP_PATH", "")
         # 启动正式入口
         from py_src.run import main
 

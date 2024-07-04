@@ -14,6 +14,7 @@
             "justMyCode": true,
             "env": {
                 "PYDEVD_DISABLE_FILE_VALIDATION": "1", // 禁用验证
+                "UMI_APP_PATH": "${workspaceFolder}/umi-ocr.sh" // 入口脚本路径
             },
             "python": "${workspaceFolder}/UmiOCR-data/venv/bin/python3", // 解释器路径
             "args": []
