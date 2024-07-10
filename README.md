@@ -224,3 +224,39 @@ pip3 install -r ../requirements.txt
 ### 待进行的开发工作
 
 - 将项目打包为体积小、易于使用的软件包。
+
+---
+
+## 关于项目结构
+
+### 各仓库：
+
+- [主仓库](https://github.com/hiroi-sora/Umi-OCR)
+- [插件库](https://github.com/hiroi-sora/Umi-OCR_plugins)
+- [Windows 运行库](https://github.com/hiroi-sora/Umi-OCR_runtime_windows)
+- [Linux 运行库](https://github.com/hiroi-sora/Umi-OCR_runtime_linux) 👈
+
+### 工程结构：
+
+`**` 后缀表示本仓库(`Linux 运行库`)包含的内容。
+
+```
+Umi-OCR
+├─ Umi-OCR.exe
+├─ umi-ocr.sh **
+├─ requirements.txt **
+└─ UmiOCR-data
+   ├─ main.py
+   ├─ main_linux.py **
+   ├─ version.py
+   ├─ venv **
+   │  └─ Python 虚拟环境
+   ├─ qt_res
+   │  └─ 项目qt资源，包括图标和qml源码
+   ├─ py_src
+   │  └─ 项目python源码
+   ├─ plugins
+   │  └─ 插件
+   └─ i18n
+      └─ 翻译文件
+```
