@@ -170,6 +170,8 @@ pip3 install -r ../requirements.txt
 
 注： `umi-ocr.sh` 为程序启动脚本，需在控制台中运行。  
 
+### 创建快捷方式
+
 如果希望像普通桌面软件一样，双击运行程序、且不显示控制台窗口，可以在全局设置中创建 **桌面/开始菜单快捷方式** ，通过快捷方式图标启动软件。 
 
 > 在不同 Linux 发行版中，系统路径可能有区别，导致 Umi 无法自动创建桌面/开始菜单快捷方式，此时请手动创建 `Umi-OCR.desktop` 文件，写入以下内容：（将 `path/to/Umi-OCR` 换成实际绝对路径）
@@ -202,10 +204,6 @@ pip3 install -r ../requirements.txt
 如果不需要使用截图功能，则无需进行此操作。
 
 ![image](https://github.com/hiroi-sora/PaddleOCR-json/assets/56373419/3f75d0eb-76bc-4f9d-b94a-b1dea9a83606)
-
-### 创建快捷方式
-
-可以在全局设置中一键创建桌面或开始菜单快捷方式。通过快捷方式启动软件时，不会显示命令行窗口。
 
 ### 命令行指令
 
