@@ -4,6 +4,19 @@
   </a>
 </p>
 
+<p align="left">
+    平台：
+    <span>
+    <a href="https://github.com/hiroi-sora/Umi-OCR_runtime_windows">
+        Windows
+    </a>
+    </span>
+    <span> • </span>
+    <span>
+        <b>Linux</b>
+    </span>
+</p>
+
 <h1 align="center">Umi-OCR Linux 运行环境</h1>
 
 本仓库为 [Umi-OCR](https://github.com/hiroi-sora/Umi-OCR) 的代码 提供 Linux 运行环境。
@@ -141,33 +154,12 @@ source venv/bin/activate
 pip3 install -r ../requirements.txt
 ```
 
-### 放置 PaddleOCR-json 插件
+### 部署 PaddleOCR-json 插件
 
-安装解压工具 p7zip ：
-```sh
-sudo apt-get install p7zip-full
-```
+参考： [PaddleOCR-json 插件 Linux 部署方式](https://github.com/hiroi-sora/Umi-OCR_plugins/tree/main/win_linux_PaddleOCR-json#linux-1) 。
 
-（确保当前在 `Umi-OCR/UmiOCR-data` 目录下）
+一般来说，用 **简易部署** 即可。如果遇到系统兼容性问题，可能需要 **源码部署** 。
 
-创建并转到插件目录：
-
-```sh
-mkdir -p plugins
-cd plugins
-```
-
-下载 [linux_x64_PaddleOCR-json_v140_dev](https://github.com/hiroi-sora/Umi-OCR_plugins/releases/tag/2.1.3_dev) 插件并解压：
-
-```sh
-wget https://github.com/hiroi-sora/Umi-OCR_plugins/releases/download/2.1.3_dev/linux_x64_PaddleOCR-json_v140_dev.7z
-7z x linux_x64_PaddleOCR-json_v140_dev.7z
-```
-
-回到 `Umi-OCR` 目录中
-```sh
-cd ../..
-```
 
 ### 启动！
 
@@ -180,7 +172,7 @@ cd ../..
 
 ![image](https://github.com/hiroi-sora/Umi-OCR_plugins/assets/56373419/3180619c-4568-43f7-bc4f-cf910d26b59c)
 
-> 注： `umi-ocr.sh` 为程序启动脚本，允许重命名。  
+> 注： `umi-ocr.sh` 为程序启动脚本，需在控制台中运行。  
 > 如果希望像普通桌面软件一样，双击运行程序、且不显示控制台窗口，可以在全局设置中创建 **桌面/开始菜单快捷方式** ，通过快捷方式图标启动软件。 
 
 如果屏幕截图功能不可用（比如截图界面是纯黑的），进行下述操作：
