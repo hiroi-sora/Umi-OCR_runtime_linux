@@ -91,8 +91,7 @@ git clone https://github.com/hiroi-sora/Umi-OCR_runtime_linux.git
 ### 安装工具
 
 ```sh
-sudo apt-get install python3-dev
-sudo apt-get install gcc
+sudo apt-get install python3-dev gcc libxcb-xinerama0
 ```
 
 ### 拷贝Linux环境所需脚本
