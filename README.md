@@ -112,15 +112,30 @@ sudo apt-get install python3-dev gcc
 
 ### Python 3.8~3.10
 
-检查当前版本：
-```sh
-python3 --version
-```
+Umi-OCR 需要 `3.8 ~ 3.10` 的 Python 解释器。除此以外的版本，如 `3.11` ，会因为无法安装 `PySide2>=5.15` 库而无法完成部署。
 
-Umi-OCR 依赖 `PySide2>=5.15` 库，它需要 `Python 3.8 ~ 3.10` 的环境。如果系统中没有版本符合的Python（比如只有 `3.11`），那么请安装一个 `Python 3.10` 。
+您可以使用以下的方式来准备 Python 解释器。
 
-> 推荐使用 [pyenv](https://github.com/pyenv/pyenv) 在系统中临时配置不同版本的Python，以下为操作步骤。（当然，您也可以使用 conda 等工具。）
+<a id="venv"></a>
+
+#### 方式一：使用已有的 Python 解释器，创建虚拟环境。
+
+> 检查系统 Python 版本，如果 `3.8 ~ 3.10` ，那么可以继续步骤：
+> ```sh
+> python3 --version
+> ```
 > 
+> 在 `Umi-OCR/UmiOCR-data` 目录中，创建Python虚拟环境，安装依赖库：
+> 
+> ```sh
+> cd Umi-OCR/UmiOCR-data
+> python3 -m venv venv
+> source venv/bin/activate
+> pip3 install -r ../requirements.txt
+> ```
+
+#### 方式二：使用 [pyenv](https://github.com/pyenv/pyenv) 安装额外的 Python 解释器。
+
 > 1. [安装 pyenv](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)
 > 
 > 2. 安装构建工具
@@ -141,20 +156,77 @@ Umi-OCR 依赖 `PySide2>=5.15` 库，它需要 `Python 3.8 ~ 3.10` 的环境。�
 > ```sh
 > pyenv shell 3.10
 > ```
+>
+> 5. 回到方式一，[创建虚拟环境](#venv)。
 
-### 创建Python虚拟环境，安装依赖库
+#### 方式三：正在测试，先不要使用！
 
+<details>
+<summary>隐藏</summary>
+</br>
+
+#### 方式三：使用 Python 嵌入包。
+
+**此方法正在测试，目前是有问题的，请不要使用。**
+
+Python 嵌入式包的好处是完全与系统隔离，便于将部署完毕的 Umi-OCR 打包和分发。
+
+在 Linux 下，Python 官方并未提供嵌入包，需要手动编译，或者使用第三方编译的模块。这里我们使用 [lmbelo/python3-embeddable](https://github.com/lmbelo/python3-embeddable) 项目。
+
+1. 确保当前在 `Umi-OCR_Project` 目录中。下载 `python3-linux-3.10.4-x86_64` ，解压到 `venv` 目录中。
 ```sh
-# 再次确保当前会话的 Python 版本为 3.8 ~ 3.10 ！
-python3 --version
+wget https://github.com/lmbelo/python3-embeddable/releases/download/v1.0.0/python3-linux-3.10.4-x86_64.zip
+unzip python3-linux-3.10.4-x86_64.zip -d venv
 ```
 
+2. 将嵌入式包复制到 `Umi-OCR/UmiOCR-data/` 。
 ```sh
-cd Umi-OCR/UmiOCR-data
-python3 -m venv venv
-source venv/bin/activate
-pip3 install -r ../requirements.txt
+cp -r -n venv Umi-OCR/UmiOCR-data/
 ```
+
+3. 激活该嵌入式环境。
+```sh
+cd Umi-OCR/UmiOCR-data/venv  # 进入环境目录（必须！）
+source activate.sh
+python3 --version  # 应该打印 Python 3.10.4
+```
+
+4. 记录下 `python3` 和 `pip3` 指令的路径。
+```sh
+which python3
+# /home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/venv/bin/python3
+which pip3
+# /home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/venv/bin/pip3
+```
+
+5. 将 pip3 指向的 python 路径，改为上面查到的 python 路径。
+```sh
+nano "/home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/venv/bin/pip3"
+```
+开头有一行：
+```sh
+#!/usr/bin/python
+```
+改为：
+```sh
+#!/home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/venv/bin/python3
+```
+保存，退出文件。
+```sh
+Ctrl+S, Ctrl+X
+```
+
+6. 下载项目依赖库。由于嵌入式python环境中 **没有SSL模块** ，无法通过常见的pip源进行下载（目前几乎所有http源都会被重定向到https）。因此，我们需要移花接木，先借助系统自带的原始pip进行下载，再转移到嵌入式pip中安装。
+
+**另开一个控制台**，在 `Umi-OCR_Project` 目录中，执行：
+```sh
+pip3 download -r ./Umi-OCR/requirements.txt -d ./pip-temp/ --only-binary=:all: --python-version 3.10.4
+```
+**回到嵌入式环境的控制台**，在当前目录（`Umi-OCR/UmiOCR-data/venv`）中，执行：
+```
+pip3 install ../../../pip-temp/*.whl
+```
+</details>
 
 ### 部署 PaddleOCR-json 插件
 
