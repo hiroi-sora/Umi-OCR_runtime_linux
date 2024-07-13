@@ -129,8 +129,8 @@ Umi-OCR 需要 `3.8 ~ 3.10` 的 Python 解释器。除此以外的版本，如 `
 > 
 > ```sh
 > cd Umi-OCR/UmiOCR-data
-> python3 -m venv venv
-> source venv/bin/activate
+> python3 -m venv .venv
+> source .venv/bin/activate
 > pip3 install -r ../requirements.txt
 > ```
 
@@ -173,20 +173,20 @@ Python 嵌入式包的好处是完全与系统隔离，便于将部署完毕的 
 
 在 Linux 下，Python 官方并未提供嵌入包，需要手动编译，或者使用第三方编译的模块。这里我们使用 [lmbelo/python3-embeddable](https://github.com/lmbelo/python3-embeddable) 项目。
 
-1. 确保当前在 `Umi-OCR_Project` 目录中。下载 `python3-linux-3.10.4-x86_64` ，解压到 `venv` 目录中。
+1. 确保当前在 `Umi-OCR_Project` 目录中。下载 `python3-linux-3.10.4-x86_64` ，解压到 `.embeddable` 目录中。
 ```sh
 wget https://github.com/lmbelo/python3-embeddable/releases/download/v1.0.0/python3-linux-3.10.4-x86_64.zip
-unzip python3-linux-3.10.4-x86_64.zip -d venv
+unzip python3-linux-3.10.4-x86_64.zip -d .embeddable
 ```
 
 2. 将嵌入式包复制到 `Umi-OCR/UmiOCR-data/` 。
 ```sh
-cp -r -n venv Umi-OCR/UmiOCR-data/
+cp -r -n .embeddable Umi-OCR/UmiOCR-data/
 ```
 
 3. 激活该嵌入式环境。
 ```sh
-cd Umi-OCR/UmiOCR-data/venv  # 进入环境目录（必须！）
+cd Umi-OCR/UmiOCR-data/.embeddable  # 进入环境目录（必须！）
 source activate.sh
 python3 --version  # 应该打印 Python 3.10.4
 ```
@@ -194,14 +194,14 @@ python3 --version  # 应该打印 Python 3.10.4
 4. 记录下 `python3` 和 `pip3` 指令的路径。
 ```sh
 which python3
-# /home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/venv/bin/python3
+# /home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/.embeddable/bin/python3
 which pip3
-# /home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/venv/bin/pip3
+# /home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/.embeddable/bin/pip3
 ```
 
 5. 将 pip3 指向的 python 路径，改为上面查到的 python 路径。
 ```sh
-nano "/home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/venv/bin/pip3"
+nano "/home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/.embeddable/bin/pip3"
 ```
 开头有一行：
 ```sh
@@ -209,7 +209,7 @@ nano "/home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/venv/bin/pip3"
 ```
 改为：
 ```sh
-#!/home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/venv/bin/python3
+#!/home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/.embeddable/bin/python3
 ```
 保存，退出文件。
 ```sh
@@ -222,7 +222,7 @@ Ctrl+S, Ctrl+X
 ```sh
 pip3 download -r ./Umi-OCR/requirements.txt -d ./pip-temp/ --only-binary=:all: --python-version 3.10.4
 ```
-**回到嵌入式环境的控制台**，在当前目录（`Umi-OCR/UmiOCR-data/venv`）中，执行：
+**回到嵌入式环境的控制台**，在当前目录（`Umi-OCR/UmiOCR-data/.embeddable`）中，执行：
 ```
 pip3 install ../../../pip-temp/*.whl
 ```

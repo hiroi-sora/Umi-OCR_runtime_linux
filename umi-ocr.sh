@@ -8,13 +8,13 @@ current_dir=$(pwd)
 export UMI_APP_PATH=$(realpath ${BASH_SOURCE[0]})
 
 # 切换环境
-if [ -f "UmiOCR-data/venv/activate.sh" ]; then
-    cd UmiOCR-data/venv
+if [ -f "UmiOCR-data/.embeddable/activate.sh" ]; then
+    cd UmiOCR-data/.embeddable
     source activate.sh
     cd $current_dir
     echo "激活嵌入式 Python 环境。"
-elif [ -f "UmiOCR-data/venv/bin/activate" ]; then
-    source UmiOCR-data/venv/bin/activate
+elif [ -f "UmiOCR-data/.venv/bin/activate" ]; then
+    source UmiOCR-data/.venv/bin/activate
     echo "激活 Python 虚拟环境。"
 else
     echo "使用默认 Python 环境。"
