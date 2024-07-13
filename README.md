@@ -51,7 +51,6 @@
 - [ ] 不支持 一键添加开机自启。（必须手动设置）
 - [ ] 不支持 批量任务完成后自动关机/待机。
 - [ ] 在`x`会话下截图受限。
-- [ ] 目前需要较繁琐的方式手动部署项目。（未来将提供更方便的发行版）
 
 ### 硬件要求
 
@@ -89,12 +88,6 @@ git clone --single-branch --branch main https://github.com/hiroi-sora/Umi-OCR.gi
 git clone https://github.com/hiroi-sora/Umi-OCR_runtime_linux.git
 ```
 
-### 安装工具
-
-```sh
-sudo apt-get install python3-dev gcc libxcb-xinerama0
-```
-
 ### 拷贝Linux环境所需脚本
 
 `Umi-OCR_runtime_linux` 仓库中的所有文件，拷贝到主仓库 `Umi-OCR` 中。（不覆盖）
@@ -104,94 +97,116 @@ cp -r -n Umi-OCR_runtime_linux/{.,}* Umi-OCR
 chmod +x Umi-OCR/umi-ocr.sh
 ```
 
-### 安装工具
+### Python 运行环境
+
+#### 方式一：下载我们提供的嵌入式运行环境包 [Release](https://github.com/hiroi-sora/Umi-OCR_runtime_linux/releases) 。
+
+下载、解压、放置到 `UmiOCR-data` 目录。
 
 ```sh
-sudo apt-get install python3-dev gcc
+wget https://github.com/hiroi-sora/Umi-OCR_runtime_linux/releases/download/2.1.3/Umi-OCR_v2.1.3_Linux_embeddable.tar.xz
+tar -v -xf Umi-OCR_v2.1.3_Linux_embeddable.tar.xz
+cp -r -n .embeddable Umi-OCR/UmiOCR-data/
 ```
 
-### Python 3.8~3.10
+<a id="venv"></a>
+
+#### 方式二：使用系统已安装的 Python 解释器，创建虚拟环境。
+
+<details>
+<summary>展开</summary>
+</br>
 
 Umi-OCR 需要 `3.8 ~ 3.10` 的 Python 解释器。除此以外的版本，如 `3.11` ，会因为无法安装 `PySide2>=5.15` 库而无法完成部署。
 
 您可以使用以下的方式来准备 Python 解释器。
 
-<a id="venv"></a>
+1. 检查系统 Python 版本，如果 `3.8 ~ 3.10` ，那么可以继续步骤：
+```sh
+python3 --version
+```
 
-#### 方式一：使用已有的 Python 解释器，创建虚拟环境。
+2. 安装工具：
+```sh
+sudo apt-get install python3-dev gcc libxcb-xinerama0
+```
 
-> 检查系统 Python 版本，如果 `3.8 ~ 3.10` ，那么可以继续步骤：
-> ```sh
-> python3 --version
-> ```
-> 
-> 在 `Umi-OCR/UmiOCR-data` 目录中，创建Python虚拟环境，安装依赖库：
-> 
-> ```sh
-> cd Umi-OCR/UmiOCR-data
-> python3 -m venv .venv
-> source .venv/bin/activate
-> pip3 install -r ../requirements.txt
-> ```
+3. 在 `Umi-OCR/UmiOCR-data` 目录中，创建Python虚拟环境，安装依赖库：
 
-#### 方式二：使用 [pyenv](https://github.com/pyenv/pyenv) 安装额外的 Python 解释器。
+```sh
+cd Umi-OCR/UmiOCR-data
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install -r ../requirements.txt
+```
 
-> 1. [安装 pyenv](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)
-> 
-> 2. 安装构建工具
-> ```sh
-> sudo apt install \
->         make wget llvm build-essential libbz2-dev \
->         libncurses5-dev libgdbm-dev libnss3-dev \
->         libssl-dev libffi-dev libreadline-dev libsqlite3-dev \
->         zlib1g-dev liblzma-dev xz-utils tk-dev
-> ```
-> 
-> 3. 在 pyenv 内，虚拟安装 Python 3.10
-> ```sh
-> pyenv install 3.10
-> ```
-> 
-> 4. 设置当前 Shell 的 Python 版本（不影响系统全局）
-> ```sh
-> pyenv shell 3.10
-> ```
->
-> 5. 回到方式一，[创建虚拟环境](#venv)。
+</details>
 
-#### 方式三：正在测试，先不要使用！
+#### 方式三：使用 [pyenv](https://github.com/pyenv/pyenv) 安装额外的 Python 解释器。
 
 <details>
-<summary>隐藏</summary>
+<summary>展开</summary>
 </br>
 
-#### 方式三：使用 Python 嵌入包。
+1. [安装 pyenv](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)
 
-**此方法正在测试，目前是有问题的，请不要使用。**
+2. 安装构建工具
+```sh
+sudo apt install python3-dev gcc libxcb-xinerama0 \
+        make wget llvm build-essential libbz2-dev \
+        libncurses5-dev libgdbm-dev libnss3-dev \
+        libssl-dev libffi-dev libreadline-dev libsqlite3-dev \
+        zlib1g-dev liblzma-dev xz-utils tk-dev
+```
+
+3. 在 pyenv 内，虚拟安装 Python 3.10
+```sh
+pyenv install 3.10
+```
+
+4. 设置当前 Shell 的 Python 版本（不影响系统全局）
+```sh
+pyenv shell 3.10
+```
+
+5. 回到方式二，[创建虚拟环境](#venv)。
+
+</details>
+
+#### 方式四：自己准备 Python 嵌入式运行环境包。
+
+<details>
+<summary>展开</summary>
+</br>
 
 Python 嵌入式包的好处是完全与系统隔离，便于将部署完毕的 Umi-OCR 打包和分发。
 
 在 Linux 下，Python 官方并未提供嵌入包，需要手动编译，或者使用第三方编译的模块。这里我们使用 [lmbelo/python3-embeddable](https://github.com/lmbelo/python3-embeddable) 项目。
 
-1. 确保当前在 `Umi-OCR_Project` 目录中。下载 `python3-linux-3.10.4-x86_64` ，解压到 `.embeddable` 目录中。
+1. 安装工具：
+```sh
+sudo apt-get install python3-dev gcc libxcb-xinerama0
+```
+
+2. 确保当前在 `Umi-OCR_Project` 目录中。下载 `python3-linux-3.10.4-x86_64` ，解压到 `.embeddable` 目录中。
 ```sh
 wget https://github.com/lmbelo/python3-embeddable/releases/download/v1.0.0/python3-linux-3.10.4-x86_64.zip
 unzip python3-linux-3.10.4-x86_64.zip -d .embeddable
 ```
 
-2. 将嵌入式包复制到 `Umi-OCR/UmiOCR-data/` 。
+3. 将嵌入式包复制到 `Umi-OCR/UmiOCR-data/` 。
 ```sh
 cp -r -n .embeddable Umi-OCR/UmiOCR-data/
 ```
 
-3. 激活该嵌入式环境。
+4. 激活该嵌入式环境。
 ```sh
 cd Umi-OCR/UmiOCR-data/.embeddable  # 进入环境目录（必须！）
 source activate.sh
 python3 --version  # 应该打印 Python 3.10.4
 ```
 
-4. 记录下 `python3` 和 `pip3` 指令的路径。
+5. 记录下 `python3` 和 `pip3` 指令的路径。
 ```sh
 which python3
 # /home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/.embeddable/bin/python3
@@ -199,7 +214,7 @@ which pip3
 # /home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/.embeddable/bin/pip3
 ```
 
-5. 将 pip3 指向的 python 路径，改为上面查到的 python 路径。
+6. 将 pip3 指向的 python 路径，改为上面查到的 python 路径。
 ```sh
 nano "/home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/.embeddable/bin/pip3"
 ```
@@ -216,7 +231,7 @@ nano "/home/my/MyCode/Umi-OCR_Project/Umi-OCR/UmiOCR-data/.embeddable/bin/pip3"
 Ctrl+S, Ctrl+X
 ```
 
-6. 下载项目依赖库。由于嵌入式python环境中 **没有SSL模块** ，无法通过常见的pip源进行下载（目前几乎所有http源都会被重定向到https）。因此，我们需要移花接木，先借助系统自带的原始pip进行下载，再转移到嵌入式pip中安装。
+7. 下载项目依赖库。由于嵌入式python环境中 **没有SSL模块** ，无法通过常见的pip源进行下载（目前几乎所有http源都会被重定向到https）。因此，我们需要移花接木，先借助系统自带的原始pip进行下载，再转移到嵌入式pip中安装。
 
 **另开一个控制台**，在 `Umi-OCR_Project` 目录中，执行：
 ```sh
@@ -226,6 +241,9 @@ pip3 download -r ./Umi-OCR/requirements.txt -d ./pip-temp/ --only-binary=:all: -
 ```
 pip3 install ../../../pip-temp/*.whl
 ```
+
+8. 完成。
+
 </details>
 
 ### 部署 PaddleOCR-json 插件
@@ -304,12 +322,6 @@ pip3 install ../../../pip-temp/*.whl
   - [QML](https://marketplace.visualstudio.com/items?itemName=bbenoist.QML) （提供qml语法高亮）
   - [QML Snippets](https://marketplace.visualstudio.com/items?itemName=ThomasVogelpohl.vsc-qml-snippets) （提供qml代码补全）
 - 本仓库提供了 `.vscode` 项目配置文件。
-
----
-
-### 待进行的开发工作
-
-- 将项目打包为体积小、易于使用的软件包。
 
 ---
 
