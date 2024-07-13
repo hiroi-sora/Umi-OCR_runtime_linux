@@ -101,6 +101,8 @@ chmod +x Umi-OCR/umi-ocr.sh
 
 #### 方式一：下载我们提供的嵌入式运行环境包 [Release](https://github.com/hiroi-sora/Umi-OCR_runtime_linux/releases) 。
 
+- 请在 [Release](https://github.com/hiroi-sora/Umi-OCR_runtime_linux/releases) 中查看最新的下载地址。
+
 下载、解压、放置到 `UmiOCR-data` 目录。
 
 ```sh
@@ -246,12 +248,28 @@ pip3 install ../../../pip-temp/*.whl
 
 </details>
 
-### 部署 PaddleOCR-json 插件
+### 部署 PaddleOCR-json
 
-参考： [PaddleOCR-json 插件 Linux 部署方式](https://github.com/hiroi-sora/Umi-OCR_plugins/tree/main/win_linux_PaddleOCR-json#linux-1) 。
+#### 方式一：简易部署
 
-一般来说，用 **简易部署** 即可。如果遇到系统兼容性问题，可能需要 **源码部署** 。
+- 请在 [Umi-OCR_plugins/releases](https://github.com/hiroi-sora/Umi-OCR_plugins/releases) 中查看最新的下载地址。
 
+下载、解压、放置到 `UmiOCR-data/plugins` 目录。
+
+```sh
+# 去到插件目录（如果没有则创建）
+# mkdir UmiOCR-data/plugins
+# cd UmiOCR-data/plugins
+# 下载打包好的插件
+wget https://github.com/hiroi-sora/Umi-OCR_plugins/releases/download/2.1.3_dev/linux_x64_PaddleOCR-json_v140_beta.tar.xz
+# 解压，放置在当前路径（plugins目录）
+tar -v -xf linux_x64_PaddleOCR-json_v140_beta.tar.xz
+```
+
+#### 方式二：源码部署
+
+
+参考： [PaddleOCR-json 插件部署](https://github.com/hiroi-sora/Umi-OCR_plugins/tree/main/win_linux_PaddleOCR-json) 。
 
 ### 启动！
 
