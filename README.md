@@ -19,19 +19,19 @@
 
 <h1 align="center">Umi-OCR Linux 运行环境</h1>
 
-本仓库为 [Umi-OCR](https://github.com/hiroi-sora/Umi-OCR) 的代码 提供 Linux 运行环境。
-
-> [!NOTE]
-> Umi-OCR Linux 处于测试阶段，使用时可能遇到一些问题。  
-> 欢迎 Linux 用户参与测试、提出Issue、贡献PR。
+本仓库为 [Umi-OCR](https://github.com/hiroi-sora/Umi-OCR) 的代码 提供 Linux 运行环境及 [Docker 部署方案](README-docker.md) 。
 
 <p align="center"><img src="https://github.com/hiroi-sora/Umi-OCR/assets/56373419/a300661e-0789-40bd-a3d6-41121c276e50" alt="预览.png" style="width: 80%;"></p>
 
 ### 已通过测试的系统
 
+主机部署：
 - Ubuntu `22.04`
 - Debian `12.5`
 - Kali `2023.3`
+
+Docker 部署：
+- CentOS `7`
 
 ### Umi-OCR Linux 兼容情况
 
@@ -72,7 +72,11 @@ Flags:          ... avx ... avx2 ...
 
 **如果看不到任何输出，这表明当前CPU不支持AVX指令集，暂时无法使用 Umi-OCR-Linux 。**
 
-## 项目部署流程
+## Docker 部署
+
+👉 [README-docker](README-docker.md)
+
+## 主机部署
 
 ### 创建项目目录
 

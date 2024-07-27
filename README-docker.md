@@ -14,6 +14,14 @@ docker build -t umi-ocr-paddle .
 ```
 - 设置镜像名称为 `umi-ocr-paddle` 。（Dockerfile默认下载使用 PaddleOCR-json 引擎）
 
+构建过程中会自动从 Github 下载 Umi-OCR 发行包。如果遇到网络问题，可能需要设置代理：
+
+```sh
+docker build -t umi-ocr-paddle . \
+    --build-arg HTTP_PROXY=http://X.X.X.X:7897 \
+    --build-arg HTTPS_PROXY=http://X.X.X.X:7897
+```
+
 ## 3. 运行容器
 
 ### 无头模式
