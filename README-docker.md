@@ -12,6 +12,7 @@ wget https://raw.githubusercontent.com/hiroi-sora/Umi-OCR_runtime_linux/main/Doc
 ```sh
 docker build -t umi-ocr-paddle .
 ```
+说明：
 - 设置镜像名称为 `umi-ocr-paddle` 。（Dockerfile默认下载使用 PaddleOCR-json 引擎）
 
 > 构建过程中会自动从 Github 下载 Umi-OCR 发行包等文件。如果遇到网络问题，可能需要设置代理：
@@ -26,7 +27,7 @@ docker build -t umi-ocr-paddle .
 
 ### 无头模式
 
-适合在没有显示器的云服务器，或者不需要GUI界面时使用。Umi-OCR 提供 HTTP 接口服务。
+适合在没有显示器的云服务器、不支持X显示协议的系统、或者不需要GUI界面时使用。让 Umi-OCR 提供 HTTP 接口服务。
 
 ```sh
 docker run -d --name umi-ocr \
@@ -36,9 +37,10 @@ docker run -d --name umi-ocr \
 ```
 说明：
 - 设置容器名称为 `umi-ocr` 。你也可以设置为任意名称。
-- 设置环境变量 `-e HEADLESS=true` 。
+- 设置环境变量 `-e HEADLESS=true` 启用无头模式。
 - 设置端口转发 `-p xxxx:1224` ，将容器内的1224端口转发给主机xxxx端口。
 - 使用的镜像为 `umi-ocr-paddle` 。
+- [HTTP接口手册](https://github.com/hiroi-sora/Umi-OCR/blob/main/docs/http/README.md)
 
 ### GUI 模式
 
@@ -79,12 +81,12 @@ docker exec umi-ocr /bin/sh -c "/app/umi-ocr.sh --show"
 docker exec umi-ocr /bin/sh -c "/app/umi-ocr.sh --screenshot"
 ```
 
-更多指令请参考 [命令行手册](https://github.com/hiroi-sora/Umi-OCR/blob/main/docs/README_CLI.md) 。如果需要传入文件路径（如 `--path` 指令），请确保该文件所在的目录，在 `docker run` 时已通过 `-v` 挂载到容器中。
+更多指令请参考 [命令行手册](https://github.com/hiroi-sora/Umi-OCR/blob/main/docs/README_CLI.md) 。如果需要传入文件路径（如 `--path` 指令），请确保该文件的任意上级目录，在 `docker run` 时已通过 `-v` 挂载到容器中。
 
 Docker GUI 模式可以使用大部分功能，就像主机中的普通应用一样：
 
 - 访问宿主机内存，进行屏幕截图、粘贴图片。
-- 访问宿主机硬盘，拖拽导入本地文件。（文件的祖先目录需要被挂载到容器中）
+- 访问宿主机硬盘，拖拽导入本地文件。（只能访问被挂载到容器中的路径）
 
 Docker 中部分功能受限，无法使用：
 
