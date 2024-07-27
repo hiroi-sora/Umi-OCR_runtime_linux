@@ -319,6 +319,20 @@ tar -v -xf linux_x64_PaddleOCR-json_v140_beta.tar.xz
 
 ![image](https://github.com/hiroi-sora/PaddleOCR-json/assets/56373419/3f75d0eb-76bc-4f9d-b94a-b1dea9a83606)
 
+### （可选）无头模式
+
+在部分没有GUI桌面的环境中（如Docker或云服务器），可通过 xvfb 配置虚拟显示器，使 Umi 的QT框架正常运行。
+
+1. 安装 xvfb
+```sh
+apt-get install -y xvfb
+```
+2. 启动 `umi-ocr.sh` 之前，设置环境变量 `HEADLESS=true` 。
+```sh
+export HEADLESS=true
+./umi-ocr.sh
+```
+
 ### 命令行指令
 
 参考主仓库 [命令行手册](https://github.com/hiroi-sora/Umi-OCR/blob/main/docs/README_CLI.md) ，将调用对象换成 `umi-ocr.sh` 。如：
