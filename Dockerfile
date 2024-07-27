@@ -35,7 +35,7 @@ RUN tar -v -xf Umi-OCR_Debian_x64_Paddle_2.1.3.tar.xz && \
     rm Umi-OCR_Debian_x64_Paddle_2.1.3.tar.xz
 
 # 下载最新的启动脚本
-RUN wget -O umi-ocr.sh https://github.com/hiroi-sora/Umi-OCR_runtime_linux/blob/main/umi-ocr.sh
+RUN wget -O umi-ocr.sh https://raw.githubusercontent.com/hiroi-sora/Umi-OCR_runtime_linux/main/umi-ocr.sh
 
 # 写入 Umi-OCR 预配置项：
 #    允许外部HTTP请求
