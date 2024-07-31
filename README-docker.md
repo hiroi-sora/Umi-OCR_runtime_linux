@@ -1,5 +1,19 @@
 # Umi-OCR Docker 部署
 
+部署前，请检查主机的CPU是否具有AVX指令集：
+
+```sh
+lscpu | grep avx
+```
+
+如果输出了类似如下的结果，那么可以继续部署。
+
+```
+Flags:          ... avx ... avx2 ...
+```
+
+**如果看不到任何输出，这表明当前CPU不支持AVX指令集，暂时无法使用 Umi-OCR-Linux 。**
+
 ## 1. 下载 Dockerfile
 ```sh
 mkdir Umi-OCR-Docker
@@ -62,7 +76,7 @@ docker run -d --name umi-ocr \
 说明：
 - 将 `/tmp/.X11-unix` 挂载到容器内，将主机显示器信息 `$DISPLAY` 传给容器内环境。
 - 将主机 `home` 目录挂载到容器内的 **相同路径** ，使文件拖拽导入的功能生效。
-  - 如果需要导入更多路径的文件，可自行挂载。注意，主机路径和容器路径必须相同。
+  - 如果需要导入更多路径的文件，可自行挂载。注意，主机路径和容器路径必须相同，如 `-v /aa/bb/cc:/aa/bb/cc`。
 - 容器运行后，等待数秒，即可在主机屏幕上显示 Umi-OCR 的窗口。
 
 ## 4. GUI 模式的控制
@@ -92,3 +106,16 @@ Docker 中部分功能受限，无法使用：
 
 - 创建桌面、开始菜单快捷方式。
 - 系统托盘区图标。
+
+如果在容器内部的命令行输出，发现以下报错，忽略即可，不用管。
+
+```
+ERROR: No native SystemTrayIcon implementation available.
+Qt Labs Platform requires Qt Widgets on this setup.
+Add 'QT += widgets' to .pro and create QApplication in main().
+
+
+ERROR: No native Menu implementation available.
+Qt Labs Platform requires Qt Widgets on this setup.
+Add 'QT += widgets' to .pro and create QApplication in main().
+```
