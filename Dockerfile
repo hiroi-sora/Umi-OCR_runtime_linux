@@ -2,7 +2,7 @@
 # https://github.com/hiroi-sora/Umi-OCR
 # https://github.com/hiroi-sora/Umi-OCR_runtime_linux
 
-FROM debian:12-slim
+FROM debian:11-slim
 
 LABEL app="Umi-OCR-Paddle"
 LABEL maintainer="hiroi-sora"
