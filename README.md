@@ -252,11 +252,11 @@ pip3 install ../../../pip-temp/*.whl
 
 </details>
 
-### 部署 PaddleOCR-json
+### 部署 PaddleOCR-json 插件
 
 #### 方式一：简易部署
 
-- 请在 [Umi-OCR_plugins/releases](https://github.com/hiroi-sora/Umi-OCR_plugins/releases) 中查看最新的下载地址。
+- 可以在 [Umi-OCR_plugins/releases](https://github.com/hiroi-sora/Umi-OCR_plugins/releases/latest) 中查看最新的Linux引擎插件下载地址。
 
 下载、解压、放置到 `UmiOCR-data/plugins` 目录。
 
@@ -265,9 +265,9 @@ pip3 install ../../../pip-temp/*.whl
 # mkdir UmiOCR-data/plugins
 # cd UmiOCR-data/plugins
 # 下载打包好的插件
-wget https://github.com/hiroi-sora/Umi-OCR_plugins/releases/download/2.1.3_dev/linux_x64_PaddleOCR-json_v140_beta.tar.xz
+wget https://github.com/hiroi-sora/Umi-OCR_plugins/releases/download/2.0.0/linux_x64_PaddleOCR-json_v141.tar.xz
 # 解压，放置在当前路径（plugins目录）
-tar -v -xf linux_x64_PaddleOCR-json_v140_beta.tar.xz
+tar -v -xf linux_x64_PaddleOCR-json_v141.tar.xz
 ```
 
 #### 方式二：源码部署
