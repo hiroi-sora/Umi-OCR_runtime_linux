@@ -28,6 +28,11 @@ echo "pwd: $(pwd)"
 # 检查环境变量 HEADLESS ，为 true 时启用无头模式
 if [ "$HEADLESS" == "true" ]; then
   echo "Use headless mode."
+  # 删除可能存在的锁文件
+  if [ -e /tmp/.X99-lock ]; then
+    echo "Removing existing lock file..."
+    rm -f /tmp/.X99-lock
+  fi
   Xvfb :99 -screen 0 1024x768x16 & export DISPLAY=:99
 else
   echo "Use GUI mode."
