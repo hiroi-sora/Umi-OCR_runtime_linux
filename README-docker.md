@@ -16,8 +16,6 @@ Flags:          ... avx ... avx2 ...
 
 ## 1. 下载 Dockerfile
 ```sh
-mkdir Umi-OCR-Docker
-cd Umi-OCR-Docker
 wget https://raw.githubusercontent.com/hiroi-sora/Umi-OCR_runtime_linux/main/Dockerfile
 ```
 
