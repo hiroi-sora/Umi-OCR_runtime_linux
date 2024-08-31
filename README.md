@@ -258,12 +258,12 @@ pip3 install ../../../pip-temp/*.whl
 
 - 可以在 [Umi-OCR_plugins/releases](https://github.com/hiroi-sora/Umi-OCR_plugins/releases/latest) 中查看最新的Linux引擎插件下载地址。
 
-下载、解压、放置到 `UmiOCR-data/plugins` 目录。
+下载、解压、放置到 `Umi-OCR/UmiOCR-data/plugins` 目录。
 
 ```sh
 # 去到插件目录（如果没有则创建）
-# mkdir UmiOCR-data/plugins
-# cd UmiOCR-data/plugins
+# mkdir Umi-OCR/UmiOCR-data/plugins
+# cd Umi-OCR/UmiOCR-data/plugins
 # 下载打包好的插件
 wget https://github.com/hiroi-sora/Umi-OCR_plugins/releases/download/2.0.0/linux_x64_PaddleOCR-json_v141.tar.xz
 # 解压，放置在当前路径（plugins目录）
