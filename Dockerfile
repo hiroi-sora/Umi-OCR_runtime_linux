@@ -6,7 +6,7 @@ FROM debian:11-slim
 
 LABEL app="Umi-OCR-Paddle"
 LABEL maintainer="hiroi-sora"
-LABEL version="2.1.3"
+LABEL version="2.1.4"
 LABEL description="OCR software, free and offline."
 LABEL license="MIT"
 LABEL org.opencontainers.image.source="https://github.com/hiroi-sora/Umi-OCR_runtime_linux"
@@ -24,18 +24,15 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # 可选1：将主机目录中的发行包，复制到容器内
-# COPY Umi-OCR_Debian_x64_Paddle_2.1.3.tar.xz .
+# COPY Umi-OCR_Linux_Paddle_2.1.4.tar.xz .
 # 可选2：在线下载发行包
-RUN wget https://github.com/hiroi-sora/Umi-OCR/releases/download/v2.1.3/Umi-OCR_Debian_x64_Paddle_2.1.3.tar.xz
+RUN wget https://github.com/hiroi-sora/Umi-OCR/releases/download/v2.1.4/Umi-OCR_Linux_Paddle_2.1.4.tar.xz
 
 # 解压压缩包，移动文件，删除多余的目录和压缩包
-RUN tar -v -xf Umi-OCR_Debian_x64_Paddle_2.1.3.tar.xz && \
-    mv Umi-OCR_Debian_x64_Paddle_2.1.3/* . && \
-    rmdir Umi-OCR_Debian_x64_Paddle_2.1.3 && \
-    rm Umi-OCR_Debian_x64_Paddle_2.1.3.tar.xz
-
-# 下载最新的启动脚本
-RUN wget -O umi-ocr.sh https://raw.githubusercontent.com/hiroi-sora/Umi-OCR_runtime_linux/main/umi-ocr.sh
+RUN tar -v -xf Umi-OCR_Linux_Paddle_2.1.4.tar.xz && \
+    mv Umi-OCR_Linux_Paddle_2.1.4/* . && \
+    rmdir Umi-OCR_Linux_Paddle_2.1.4 && \
+    rm Umi-OCR_Linux_Paddle_2.1.4.tar.xz
 
 # 写入 Umi-OCR 预配置项：
 #    允许外部HTTP请求
