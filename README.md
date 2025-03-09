@@ -72,38 +72,38 @@ Flags:          ... avx ... avx2 ...
 
 **如果看不到任何输出，这表明当前CPU不支持AVX指令集，暂时无法使用 Umi-OCR-Linux 。**
 
-## Docker 部署
+## Docker 部署方案
 
 👉 [README-docker](README-docker.md)
 
-## 主机部署
+## 直接部署方案
 
-### 创建项目目录
+### 1. 创建项目目录
 
 ```sh
 mkdir Umi-OCR_Project
 cd Umi-OCR_Project
 ```
 
-### 拉取最新源码
+### 2. 拉取最新源码
 
 ```sh
 git clone --single-branch --branch main https://github.com/hiroi-sora/Umi-OCR.git
 git clone https://github.com/hiroi-sora/Umi-OCR_runtime_linux.git
 ```
 
-### 拷贝Linux环境所需脚本
+### 3. 拷贝Linux环境所需脚本
 
-`Umi-OCR_runtime_linux` 仓库中的所有文件，拷贝到主仓库 `Umi-OCR` 中。（不覆盖）
+将 `Umi-OCR_runtime_linux` 仓库目录中的所有文件，拷贝到主仓库 `Umi-OCR` 中。（不覆盖）
 
 ```sh
 cp -r -n Umi-OCR_runtime_linux/{.,}* Umi-OCR
 chmod +x Umi-OCR/umi-ocr.sh
 ```
 
-### Python 运行环境
+### 4. 准备 Python 运行环境
 
-#### 方式一：下载我们提供的嵌入式运行环境包 [Release](https://github.com/hiroi-sora/Umi-OCR_runtime_linux/releases) 。
+#### 方式一（推荐）：下载我们提供的嵌入式运行环境包 [Release](https://github.com/hiroi-sora/Umi-OCR_runtime_linux/releases) 。
 
 - 请在 [Release](https://github.com/hiroi-sora/Umi-OCR_runtime_linux/releases) 中查看最新的下载地址。
 
@@ -252,9 +252,9 @@ pip3 install ../../../pip-temp/*.whl
 
 </details>
 
-### 部署 PaddleOCR-json 插件
+### 5. 部署 PaddleOCR-json 插件
 
-#### 方式一：简易部署
+#### 方式一（推荐）：简易部署
 
 - 可以在 [Umi-OCR_plugins/releases](https://github.com/hiroi-sora/Umi-OCR_plugins/releases/latest) 中查看最新的Linux引擎插件下载地址。
 
@@ -275,7 +275,7 @@ tar -v -xf linux_x64_PaddleOCR-json_v141.tar.xz
 
 参考： [PaddleOCR-json 插件部署](https://github.com/hiroi-sora/Umi-OCR_plugins/tree/main/win_linux_PaddleOCR-json) 。
 
-### 启动！
+### 6. 启动！
 
 通过命令行启动：
 ```sh
